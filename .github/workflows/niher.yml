@@ -31,13 +31,14 @@ jobs:
       # Step 3: Display the status of the repository
       - run: git status
 
-      # Step 4: Commit and push the generated files to the "output" branch
-      - name: Push changes
-        uses: ad-m/github-push-action@v0.6.0
+      # Step 4: Commit and push the generated files to the "output" branch using a maintained action
+      - name: Commit and push changes
+        uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          commit_message: "Update contribution graph with snake"
           branch: output
-          force: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       # Step 5: Deploy the generated files to GitHub Pages
       - uses: crazy-max/ghaction-github-pages@v2.1.3
